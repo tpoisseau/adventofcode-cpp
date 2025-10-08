@@ -1,0 +1,8 @@
+root = true
+
+[*.txt]
+charset = utf-8
+end_of_line = lf
+# consider txt files as raw binary input, trim or insert empty line at the end
+insert_final_newline = false
+trim_trailing_whitespace = false
