@@ -85,6 +85,10 @@ CTestTestfile.cmake
 _deps
 CMakeUserPresets.json
 
+### CMake template adjustment
+cmake-build-debug/*
+!cmake-build-debug/.gitkeep
+
 ### Project specific ignore
 
 # AoC ask to not publish dataset

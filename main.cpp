@@ -1,7 +1,7 @@
-#include "2022/day_05.h"
+#include "2022/day_06.h"
 
 int main() {
-    day_05_part_2();
+    day_06_part_2();
 
     return 0;
 }

@@ -13,8 +13,6 @@
 
 #include <ranges>
 
-// #include "day_05.h"
-
 using namespace std;
 
 constexpr char DELIMITER = ' ';
