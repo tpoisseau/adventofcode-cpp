@@ -141,10 +141,8 @@ void day_08_part_2() {
 
             // check left to right
             u_int64_t looking_left_scenic_score = 0;
-            for (long cursor_column = column_long - 1; cursor_column >= 0; cursor_column--) {
-                const auto view_tree_size = forest_row[cursor_column];
-                looking_left_scenic_score++;
-                if (view_tree_size >= tree_size) break;
+            for (auto it = forest_row.rbegin() + 1; it != forest_row.rend(); ++it, looking_left_scenic_score++) {
+                if (*it >= tree_size) break;
             }
 
             // check top to bottom
