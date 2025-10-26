@@ -9,4 +9,6 @@ void day_08_part_1();
 
 void day_08_part_2();
 
+void day_08_part_2_matrix();
+
 #endif //ADVENT_OF_CODE_CPP_DAY_08_H
