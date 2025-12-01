@@ -3,6 +3,9 @@ project(advent_of_code_cpp)
 
 set(CMAKE_CXX_STANDARD 26)
 
-file(GLOB SRC_FILES_2022 ${PROJECT_SOURCE_DIR}/2022/*.h ${PROJECT_SOURCE_DIR}/2022/*.cpp)
-add_executable(advent_of_code_cpp main.cpp ${SRC_FILES_2022}
+#file(GLOB SRC_FILES_2022 ${PROJECT_SOURCE_DIR}/2022/*.h ${PROJECT_SOURCE_DIR}/2022/*.cpp)
+file(GLOB SRC_FILES_2025 ${PROJECT_SOURCE_DIR}/2025/*.h ${PROJECT_SOURCE_DIR}/2025/*.cpp)
+add_executable(advent_of_code_cpp main.cpp
+        #        ${SRC_FILES_2022}
+        ${SRC_FILES_2025}
         shared/iterators.h)
