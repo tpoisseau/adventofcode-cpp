@@ -49,4 +49,55 @@ void day_02_part_1_2025() {
 }
 
 void day_02_part_2_2025() {
+    ifstream input(filesystem::current_path().append("2025/inputs/day_02.txt"));
+    if (!input.is_open()) throw runtime_error("Unable to open file");
+
+    unsigned long long sum_invalid_ids = 0;
+    while (true) {
+        string s_start;
+        string s_end;
+
+        getline(input, s_start, '-');
+        getline(input, s_end, ',');
+
+        if (s_start.empty()) break;
+
+        auto start = stoull(s_start);
+        auto end = stoull(s_end);
+
+        cout << format("Invalid IDs in range {} - {}: ", start, end);
+        for (unsigned long long id = start; id <= end; id++) {
+            auto s = to_string(id);
+            auto s_length = s.length();
+            auto middle = s_length / 2;
+
+            bool is_invalid_id = false;
+            for (unsigned long slice_size = 1; slice_size <= middle; slice_size++) {
+                string s_slice = s.substr(0, slice_size);
+
+                bool all_next_slices_are_equal = true;
+                if ((s_length % slice_size) > 0) continue;
+                for (size_t slice_start = slice_size; slice_start <= s_length - slice_size; slice_start += slice_size) {
+                    string s_slice_next = s.substr(slice_start, slice_size);
+                    if (s_slice == s_slice_next) continue;
+
+                    all_next_slices_are_equal = false;
+                    break;
+                }
+
+                if (!all_next_slices_are_equal) continue;
+
+                is_invalid_id = true;
+                break;
+            }
+
+            if (!is_invalid_id) continue;
+
+            sum_invalid_ids += id;
+            cout << format(", {}", id);
+        }
+        cout << endl;
+    }
+
+    cout << "Sum of invalid IDs: " << sum_invalid_ids << endl;
 }
