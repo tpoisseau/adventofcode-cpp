@@ -98,8 +98,8 @@ void day_05_part_2_2025() {
 
         // translate start to the highest end possible from ordered existing ranges
         for (auto [ordered_start, ordered_end]: fresh_ingredients) {
-            // if (start > ordered_end) break;
             if (start >= ordered_start && start <= ordered_end) start = ordered_end + 1;
+            if (end < start) break;
         }
 
         // continue if translations gone too far
@@ -115,6 +115,5 @@ void day_05_part_2_2025() {
         fresh_ingredients_count += end - start + 1;
     }
 
-    // 343807840298494 to low
     cout << "Total Fresh Ingredients: " << fresh_ingredients_count << endl;
 }
