@@ -13,4 +13,6 @@ add_executable(advent_of_code_cpp main.cpp
         2025/day_02.h 2025/day_02.cpp
         2025/day_03.h 2025/day_03.cpp
         2025/day_04.cpp
-        2025/day_04.h)
+        2025/day_04.h
+        2025/day_05.cpp
+        2025/day_05.h)
