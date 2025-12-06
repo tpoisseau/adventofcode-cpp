@@ -7,10 +7,14 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <list>
 #include <mdspan>
+#include <numeric>
 #include <sstream>
 #include <regex>
 #include <vector>
+
+#include "../shared/iterators.h"
 
 using namespace std;
 
@@ -23,11 +27,6 @@ enum ParseMode {
 void day_06_part_1_2025() {
     ifstream input(filesystem::current_path().append("2025/inputs/day_06.txt"));
     if (!input.is_open()) throw runtime_error("Unable to open file");
-
-    // string line;
-    // while (getline(input, line, ' ')) {
-    //     cout << line << endl;
-    // }
 
     vector<unsigned long> raw_matrix;
     size_t columns = 0;
@@ -120,4 +119,64 @@ void day_06_part_1_2025() {
 }
 
 void day_06_part_2_2025() {
+    ifstream input(filesystem::current_path().append("2025/inputs/day_06.txt"));
+    if (!input.is_open()) throw runtime_error("Unable to open file");
+
+    vector<char> raw_matrix;
+    size_t columns = 0;
+    size_t rows = 0;
+
+    string line;
+    while (getline(input, line)) {
+        if (line.empty()) break;
+
+        const auto line_length = line.size();
+        if (line_length > columns) columns = line_length;
+
+        raw_matrix.insert(raw_matrix.end(), line.begin(), line.end());
+        rows++;
+    }
+
+    const auto matrix = mdspan(raw_matrix.data(), rows, columns);
+    stringstream ss;
+    list<unsigned long> numbers_to_operate;
+    uint64_t total = 0;
+    for (auto [column, _]: aoc::iterators::matrix_horizontal_reverse_it(matrix, 0, columns, 1)) {
+        char operation = '\0';
+        for (auto row_entry: aoc::iterators::matrix_vertical_it(matrix, column, 0)) {
+            auto [row, ch] = row_entry;
+            if (ch >= '0' && ch <= '9') {
+                ss << static_cast<char>(ch);
+                continue;
+            }
+            if (ch != ' ') operation = ch;
+        }
+
+        string ss_str = ss.str();
+        ss = stringstream();
+        if (ss_str.empty()) continue;
+
+        auto value = stoul(ss_str);
+        numbers_to_operate.push_back(value);
+
+        if (operation == '+') {
+            uint64_t sum = 0;
+            for (auto number: numbers_to_operate) {
+                sum += number;
+            }
+            total += sum;
+
+            numbers_to_operate = {};
+        } else if (operation == '*') {
+            uint64_t sum = 1;
+            for (auto number: numbers_to_operate) {
+                sum *= number;
+            }
+            total += sum;
+
+            numbers_to_operate = {};
+        }
+    }
+
+    cout << "Total: " << total << endl;
 }
